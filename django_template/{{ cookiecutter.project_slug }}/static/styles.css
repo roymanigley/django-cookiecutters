@@ -1,0 +1,15 @@
+[type="checkbox"] {
+    opacity: 1 !important;
+    pointer-events: all !important;
+    top: 0.2em;
+    margin: 1em !important;
+    position: relative !important;
+}
+
+.text-wrap-pre {
+  white-space: pre;
+}
+
+a.disabled-link {
+    pointer-events: none;
+}

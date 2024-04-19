@@ -1,0 +1,21 @@
+{% raw %}<nav>
+    <div class="nav-wrapper teal">
+        <a href="#!" class="brand-logo center">Logo</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger" style="display: block"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
+<br><br>
+<ul class="sidenav" id="mobile-demo">
+    {% if user.is_authenticated %}{% endraw %}
+    
+    {% for model in cookiecutter.models.models_list %}
+    <li><a href="/{{ model.name|lower }}">{{ model.name }}</a></li>
+    {% endfor %}{% raw %}
+    <hr>
+    <li><a href="/logout/">Logout</a></li>
+    {% else %}
+    <hr>
+    <li><a href="/login/">Login</a></li>
+    {% endif %}
+    <hr>
+</ul>{% endraw %}

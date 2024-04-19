@@ -1,0 +1,39 @@
+{
+  "project_name": "Cookiecutter API",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+  "author": "Anonymous",
+  "models": {
+    "models_list":[
+      { 
+        "name": "Person",
+        "fields": [
+          {
+            "name": "name",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          }
+        ],
+        "relations": [
+          {
+            "name": "cookie",
+            "type": "Cookie",
+            "required": true
+          }
+        ]
+      },
+      { 
+        "name": "Cookie",
+        "fields": [
+          {
+            "name": "name",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          }
+        ]
+      }
+
+    ]
+  }
+}

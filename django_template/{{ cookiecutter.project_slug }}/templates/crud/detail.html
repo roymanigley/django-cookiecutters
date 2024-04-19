@@ -1,0 +1,29 @@
+{% raw %}{% extends 'layout/base.html' %}
+{% load get_attr %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="card">
+        <div class="card-content">
+        {% for field in fields %}
+            <div class="row">
+                <div class="col s12 l2"><strong>{{ field }}:</strong></div>
+                <div class="col s12 l10">
+                    {% if data|get_attr:field and data|get_attr:field|get_attr:'url' %}
+                    <a href="{% get_media_prefix %}/{{ data|get_attr:field }}" target="_blank" title="{{ data|get_attr:field }}">download</a>
+                    {% else %}
+                    <p class="text-wrap-pre">{{ data|get_attr:field }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="card-action">
+            <a class="btn" href="edit/?next={{next}}">edit</a>
+            <a class="btn pink" href="delete/?next={{next}}">delete</a>
+            <button class="btn grey" type="button" onclick="location-history.back()">cancel</button>
+        </div>
+    </div>
+</div>
+{% endblock %}{% endraw %}

@@ -1,0 +1,47 @@
+{% raw %}{% extends 'layout/base.html' %}
+{% load get_attr %}
+{% block content %}
+{% load static %}
+<a class="btn" href="new/?page={{page}}&size={{size}}">new</a>
+
+<div class="row" style="overflow-x: auto;">
+<table>
+    <thead>
+    <th>#</th>
+    {% for field in fields %}
+    <th>{{ field }}</th>
+    {% endfor %}
+    </thead>
+    <tbody>
+    {% for record in data %}
+    <tr class="text-wrap-pre">
+        <td><a href="{{record.id}}/?page={{page}}&size={{size}}">{{record.id}}</a></td>
+        {% for field in fields %}
+        {% if record|get_attr:field and record|get_attr:field|get_attr:'url' %}
+        <td><a href="{% get_media_prefix %}/{{ record|get_attr:field }}" target="_blank"
+               title="{{ record|get_attr:field|get_attr:'name' }}">download</a></td>
+        {% else %}
+        <td>{{ record|get_attr:field }}</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<div class="center">
+    <ul class="pagination">
+        <li class="{% if page_current < 2 %}disabled{% endif %}" style="width: 2em"><a href="?page=1&size={{size}}" class="{% if page_current < 2%}disabled-link{% endif %}"><i class="material-icons">fast_rewind</i></a></li>
+        <li class="{% if page_current < 2 %}disabled{% endif %}"><a href="?page={{page_current|add:-1}}&size={{size}}" class="{% if page_current < 2%}disabled-link{% endif %}"><i class="material-icons">chevron_left</i></a></li>
+        {% for page in pages_total %}
+            {% if page|add:1 == page_current %}
+                <li class="waves-effect active teal"><a href="?page={{page|add:1}}&size={{size}}">{{ page|add:1 }}</a></li>
+            {% else %}
+                <li class="waves-effect"><a href="?page={{page|add:1}}&size={{size}}">{{ page|add:1 }}</a></li>
+            {% endif %}
+        {% endfor %}
+        <li class="{% if page_current >= pages_total|length %}disabled{% endif %}" style="width: 2em"><a href="?page={{page_current|add:1}}&size={{size}}" class="{% if page_current >= pages_total|length %}disabled-link{% endif %}"><i class="material-icons">chevron_right</i></a></li>
+        <li class="{% if page_current >= pages_total|length %}disabled{% endif %}"><a href="?page={{pages_total|length}}&size={{size}}" class="{% if page_current >= pages_total|length %}disabled-link{% endif %}"><i class="material-icons">fast_forward</i></a></li>
+    </ul>
+</div>
+{% endblock %}{% endraw %}
