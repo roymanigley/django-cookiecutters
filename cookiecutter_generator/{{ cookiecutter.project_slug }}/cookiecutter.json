@@ -1,0 +1,5 @@
+{
+  "project_name": "Awesome Project",
+  "project_slug": "{% raw %}{{ cookiecutter.project_name.lower().replace(' ', '_') }}{% endraw %}",
+  "author": "Anonymous"
+}
