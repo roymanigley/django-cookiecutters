@@ -1,0 +1,8 @@
+.header-background {
+    background: var(--surface-0);
+}
+:host ::ng-deep app-header > p-toolbar > .p-toolbar {
+    position: sticky;
+    position: -webkit-sticky; // Needed for Safari browsers.
+    top: 0; // Required for "position: sticky" to take effect.
+}

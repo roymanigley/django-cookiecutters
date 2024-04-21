@@ -1,0 +1,3 @@
+{% for model in cookiecutter.models.models_list %}
+--- split: src/app/components/domain/{{ model.name|lower }}/{{ model.name|lower }}-delete/{{ model.name|lower }}-delete.component.scss
+{% endfor %}

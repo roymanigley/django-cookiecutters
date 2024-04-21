@@ -1,0 +1,40 @@
+{% raw %}<form
+    *ngIf="formGroup"
+    [formGroup]="formGroup" 
+    class="grid">
+    <div class="col-12 text-center">
+        <h2>Login</h2>
+    </div>
+    <div class="col-12 text-center mb-5">
+        <p-floatLabel>
+            <input 
+                class="w-full" 
+                id="username" 
+                type="text" 
+                pInputText 
+                formControlName="username" />
+            <label for="username">{{'username' | translate }}</label>
+        </p-floatLabel>
+    </div>
+    <div class="col-12 text-center">
+        <p-floatLabel>
+            <input 
+                class="w-full" 
+                id="password"
+                pPassword
+                feedback="false"
+                formControlName="password" />
+            <label for="password">{{'password' | translate }}</label>
+        </p-floatLabel>
+    </div>
+    <div class="col-12 text-center">
+        <p-button
+            [disabled]="formGroup.invalid"
+            (click)="login()"
+            rounded="true"
+            outlined="true"
+            icon="pi pi-login"
+            type="submit"
+            label="{{ 'login' | translate }}"/>
+    </div>
+</form>{% endraw %}

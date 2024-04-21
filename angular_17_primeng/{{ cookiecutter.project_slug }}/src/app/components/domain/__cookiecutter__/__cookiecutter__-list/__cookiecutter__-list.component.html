@@ -1,0 +1,65 @@
+{% for model in cookiecutter.models.models_list %}{% raw %}<div class="p-5">
+    <p-card>
+        <ng-template pTemplate="header">
+            <div class="text-center">
+                <h2>{% endraw %}{{ model.name }}{% raw %}</h2>
+            </div>
+        </ng-template>
+        
+        <p-table [value]="page?.results ?? []" styleClass="p-datatable-striped">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="w-10rem">
+                        <p-button 
+                            icon="pi pi-plus"
+                            outlined="true"
+                            rounded="true"
+                            [routerLink]="['new']"
+                            ></p-button>
+                    </th>
+                    <th class="w-5rem">
+                        {{ 'id' | translate}}
+                    </th>
+                    {% endraw %}{% for field in model.fields %}<th>
+                        {{ '{{' }}' {{ field.name }}' | translate {{ '}}' }}
+                    </th>
+                    {% endfor %}{% raw %}
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>
+                        <p-button 
+                            icon="pi pi-pencil" 
+                            rounded="true" 
+                            outlined="true"
+                            severity="secondary"
+                            styleClass="status-filter-button mr-3"
+                            [routerLink]="[item.id, 'edit']"></p-button >
+                        <p-button 
+                            icon="pi pi-trash" 
+                            rounded="true"
+                            outlined="true" 
+                            severity="danger"
+                            styleClass="status-filter-button"
+                            [routerLink]="[item.id, 'delete']"></p-button>
+                    </td>
+                    <td>{{ item.id }}</td>
+                    {% endraw %}{% for field in model.fields %}<td>{{ '{{ item.' + field.name + ' }}' }}</td>
+                    {% endfor %}{% raw %}
+                </tr>
+            </ng-template>
+        </p-table>
+        
+        <div class="flex-auto" *ngIf="page">
+            <p-paginator 
+                (onPageChange)="onPageChange($event)"
+                [first]="page!.page" 
+                [rows]="defaultPageSize" 
+                [totalRecords]="page!.count" 
+                [rowsPerPageOptions]="[10, defaultPageSize, 50, 100]"></p-paginator>
+        </div>    
+    </p-card>
+</div>{% endraw %}
+--- split: src/app/components/domain/{{ model.name|lower }}/{{ model.name|lower }}-list/{{ model.name|lower }}-list.component.html
+{% endfor %}

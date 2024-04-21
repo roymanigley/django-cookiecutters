@@ -1,0 +1,79 @@
+{
+  "project_name": "Cookiecutter Angular Frontend",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+  "author": "Anonymous",
+  "models": {
+    "models_list":[
+      { 
+        "name": "ParentModel",
+        "fields": [
+          {
+            "name": "char_field",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "text_field",
+            "type": "TextField",
+            "required": true
+          },
+          {
+            "name": "email_field",
+            "type": "EmailField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "boolean_field",
+            "type": "BooleanField"
+          },
+          {
+            "name": "int_field",
+            "type": "IntegerField",
+            "required": true
+          },
+          {
+            "name": "float_field",
+            "type": "FloatField",
+            "required": true
+          },
+          {
+            "name": "date_field",
+            "type": "DateField",
+            "required": true
+          },
+          {
+            "name": "date_time_field",
+            "type": "DateTimeField",
+            "required": true
+          },
+          {
+            "name": "file_field",
+            "type": "FileField",
+            "required": true
+          }
+        ],
+        "relations": [
+          {
+            "name": "child_field",
+            "type": "ChildModel",
+            "required": true
+          }
+        ]
+      },
+      { 
+        "name": "ChildModel",
+        "fields": [
+          {
+            "name": "char_field",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          }
+        ]
+      }
+
+    ]
+  }
+}

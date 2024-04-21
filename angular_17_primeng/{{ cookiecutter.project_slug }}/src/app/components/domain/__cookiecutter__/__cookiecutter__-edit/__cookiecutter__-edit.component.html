@@ -1,0 +1,56 @@
+{% for model in cookiecutter.models.models_list %}{% raw %}<div class="p-5">
+    <p-card>
+        <ng-template pTemplate="header">
+            <div class="text-center">
+                {% endraw %}<h2>{{ model.name }}</h2>{% raw %}
+            </div>
+        </ng-template>
+        <form
+            *ngIf="formGroup"
+            [formGroup]="formGroup" 
+            class="grid">
+            {% endraw %}{% for field in model.fields %}
+            <div class="col-12 text-center">
+                <!-- 
+                    CharField
+                    TextField
+                    EmailField
+                    BooleanField
+                    IntegerField
+                    FloatField
+                    DateField
+                    DateTimeField
+                    FileField
+                -->
+                <p-floatLabel>
+                    <input 
+                        class="w-full" 
+                        id="{{ field.name }}" 
+                        type="text" 
+                        pInputText 
+                        formControlName="{{ field.name }}" />
+                    <label for="{{ field.name }}">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                    </label>
+                </p-floatLabel>
+            </div>
+            {% endfor %}{% raw %}
+            <div class="col-12 text-center">   
+                <p-button
+                    class="mr-3"
+                    [disabled]="formGroup.invalid"
+                    (click)="save()"
+                    outlined="true"
+                    rounded="true"
+                    icon="pi pi-save"></p-button>
+                <p-button
+                    (click)="back()"
+                    outlined="true"
+                    severity="secondary"
+                    icon="pi pi-times"></p-button>
+            </div>
+        </form>
+    </p-card>
+</div>{% endraw %}
+--- split: src/app/components/domain/{{ model.name|lower }}/{{ model.name|lower }}-edit/{{ model.name|lower }}-edit.component.html
+{% endfor %}
