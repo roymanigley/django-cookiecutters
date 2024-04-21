@@ -17,17 +17,17 @@
 - [ ] test different model field types
     - [x] `models.CharField`
     - [x] `models.ForeignKey`
-    - [ ] `models.EmailField`
-    - [ ] `models.BooleanField`
+    - [x] `models.EmailField`
+    - [x] `models.BooleanField`
     - [ ] `models.BinaryField`
     - [ ] `models.DecimalField`
     - [ ] `models.BigIntegerField`
-    - [ ] `models.IntegerField`
-    - [ ] `models.FloatField`
-    - [ ] `models.DateField`
-    - [ ] `models.DateTimeField`
+    - [x] `models.IntegerField`
+    - [x] `models.FloatField`
+    - [x] `models.DateField`
+    - [x] `models.DateTimeField`
     - [ ] `models.DurationField`
-    - [ ] `models.JsonField`
+    - [x] `models.JsonField`
     - [ ] `models.FileField`
 - [ ] support for docker
     - database

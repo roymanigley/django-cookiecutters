@@ -10,18 +10,18 @@ class {{model.name}}Serializer(GenericSerializer):
         class Meta:
             model = {{ relation.type }}
         {% for _model in cookiecutter.models.models_list %}{% if _model.name == relation.type %}{% if 'fields' in _model.keys() %}{% for _field in _model.fields %}
-        {{_field.name}} = serializers.{{ _field.type }}(read_only=True)
+        {{_field.name}} = serializers.{{ 'CharField' if _field.type == 'TextField' else _field.type }}(read_only=True)
         {% endfor %}{% endif %}{% endif %}{% endfor %}{% endfor %}{% endif %}
 
     id = serializers.IntegerField(read_only=True)
-    {% if 'fields' in model.keys() %}{% for field in model.fields %}{{field.name}} = serializers.{{ field.type }}(
-        {% if 'max_length' in field.keys() and field.max_length %}max_length={{field.max_length}}, {% endif %}
-        {% if 'required' not in field.keys() or field.required in [None, True] %}required=True, {% endif %}
+    {% if 'fields' in model.keys() %}{% for field in model.fields %}{{field.name}} = serializers.{{'CharField' if field.type == 'TextField' else field.type }}(
+        {%- if 'max_length' in field.keys() and field.max_length -%}max_length={{field.max_length}}, {%- endif -%}
+        {%- if 'required' not in field.keys() or field.required in [None, True] -%}required=True, {%- endif -%}
     )
     {% endfor %}{% endif %}
     {% if 'relations' in model.keys() %}{% for relation in model.relations %}{{relation.name}} = _{{model.name}}_{{ relation.name|replace('_', ' ')|title|replace(' ', '') }}Serializer(read_only=True)
-    {{ relation.name }}_id = serializers.IntegerField(write_only=True,
-        {% if 'required' not in relation.keys() or relation.required in [None, True] %}required=True, {% endif %}
+    {{ relation.name }}_id = serializers.IntegerField(
+        write_only=True,{%- if 'required' not in relation.keys() or relation.required in [None, True] -%}required=True, {%- endif -%}
     )
     {% endfor %}{% endif %}
 

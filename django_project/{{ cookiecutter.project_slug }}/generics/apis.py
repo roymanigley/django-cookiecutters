@@ -56,7 +56,7 @@ class ApiListMixIn:
         return Response(
             data,
             status=status.HTTP_200_OK,
-            headers={'total-records-count': total_records_count}
+            headers={'X-Total-Count': total_records_count}
         )
 
 
