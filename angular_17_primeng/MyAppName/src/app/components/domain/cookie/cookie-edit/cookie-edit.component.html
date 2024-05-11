@@ -1,0 +1,34 @@
+<div class="p-5">
+    <p-card>
+        <ng-template pTemplate="header">
+            <div class="text-center">
+                <h2>Cookie</h2>
+            </div>
+        </ng-template>
+<form
+    *ngIf="formGroup"
+    [formGroup]="formGroup" 
+    class="grid">
+    <div class="col-12 text-center">        
+        <p-floatLabel>
+            <input class="w-full" id="name" type="text" pInputText formControlName="name" />
+            <label for="name">{{'name' | translate }}</label>
+        </p-floatLabel>
+    </div>
+    <div class="col-12 text-center">   
+        <p-button
+            class="mr-3"
+            [disabled]="formGroup.invalid"
+            (click)="save()"
+            outlined="true"
+            rounded="true"
+            icon="pi pi-save"></p-button>
+        <p-button
+            (click)="back()"
+            outlined="true"
+            severity="secondary"
+            icon="pi pi-times"></p-button>
+    </div>
+</form>
+</p-card>
+</div>

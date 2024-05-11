@@ -2,7 +2,7 @@
     <p-card>
         <ng-template pTemplate="header">
             <div class="text-center">
-                <h2>{% endraw %}{{ model.name }}{% raw %}</h2>
+                <h2>{{ 'title.list.{% endraw %}{{ model.name|lower }}{% raw %}' | translate }}</h2>
             </div>
         </ng-template>
         

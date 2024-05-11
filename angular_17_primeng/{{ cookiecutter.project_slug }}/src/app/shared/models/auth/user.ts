@@ -3,5 +3,6 @@ export interface IUser {
     first_name: string;
     last_name: string;
     email: string;
-    pk: any
+    is_superuser: boolean;
+    permissions: string[];
 }

@@ -2,12 +2,14 @@
     <p-card styleClass="w-30rem">
         <ng-template pTemplate="header">
             <div class="text-center">
-                <h2>{{ 'delete' }} {% endraw %}{{ model.name }}{% raw %}</h2>
+                <h2>{{ 'title.delete.{% endraw %}{{ model.name|lower }}{% raw %}' | translate }}</h2>
             </div>
         </ng-template>
         <div>
             <div class="text-center">
-                <em title="id: {{ record?.id }}">Delete {% endraw %}{{ model.name }}{% raw %} {{ record?.{% endraw %}{{ model.fields[0].name }}{% raw %} }}</em>
+                <em title="id: {{ record?.id }}">
+                    {{ 'question.delete.this.record' | translate }} {% endraw %}{{ model.name }}{% raw %} {{ record?.{% endraw %}{{ model.fields[0].name }}{% raw %} }}
+                </em>
             </div>
         </div>
 

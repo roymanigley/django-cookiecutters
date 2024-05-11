@@ -2,7 +2,8 @@
     <p-card>
         <ng-template pTemplate="header">
             <div class="text-center">
-                {% endraw %}<h2>{{ model.name }}</h2>{% raw %}
+                <h2 *ngIf="record?.id">{{ 'title.edit.{% endraw %}{{ model.name|lower }}{% raw %}' | translate }}</h2>
+                <h2 *ngIf="!record?.id">{{ 'title.new.{% endraw %}{{ model.name|lower }}{% raw %}' | translate }}</h2>
             </div>
         </ng-template>
         <form
@@ -10,18 +11,117 @@
             [formGroup]="formGroup" 
             class="grid">
             {% endraw %}{% for field in model.fields %}
-            <div class="col-12 text-center">
+            <div class="col-12 mb-5">
+                {% if field.type == 'DateField' %}
+                <p-floatLabel>
+                    <p-calendar
+                        styleClass="w-full" 
+                        id="{{ field.name }}"  
+                        formControlName="{{ field.name }}"
+                        [showIcon]="true" 
+                        [showOnFocus]="true" 
+                        inputId="buttondisplay" />    
+                    <label for="{{ field.name }}">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                    </label>
+                </p-floatLabel>
+                {% elif field.type == 'DateTimeField' %}
+                    <p-calendar
+                        styleClass="w-full" 
+                        id="{{ field.name }}"  
+                        formControlName="{{ field.name }}"
+                        [showIcon]="true" 
+                        [showOnFocus]="true"
+                        [showTime]="true"
+                        inputId="buttondisplay" />    
+                    <label for="{{ field.name }}">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                    </label>
+                {% elif field.type == 'TimeField' %}
+                <p-floatLabel>
+                    <p-calendar
+                        styleClass="w-full" 
+                        id="{{ field.name }}"
+                        formControlName="{{ field.name }}" 
+                        inputId="calendar-timeonly"
+                        iconDisplay="input"
+                        [timeOnly]="true"
+                        [showIcon]="true" 
+                        [showOnFocus]="true" 
+                        inputId="templatedisplay">
+                            <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+                                <button  
+                                    pButton
+                                    style="border-radius: 0 6px 6px 0"
+                                    class="p-element p-ripple p-datepicker-trigger p-button-icon-only ng-star-inserted"
+                                    (click)="clickCallBack($event)">
+                                    <i class="pi pi-clock pointer-events-none"></i>
+                                </button>
+                            </ng-template>
+                        </p-calendar>
+                    <label for="{{ field.name }}">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                    </label>
+                </p-floatLabel>
+                {% elif field.type == 'BooleanField' %}
+                <p-checkbox
+                    inputId="{{ field.name }}"
+                    [binary]="true"
+                    formControlName="{{ field.name }}"/>
+                <label for="is_active">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                </label>
+                {% elif field.type == 'IntegerField' %}
+                <p-floatLabel>
+                    <p-inputNumber 
+                        inputId="integeronly" 
+                        id="{{ field.name }}" 
+                        formControlName="{{ field.name }}" />
+                    <label for="{{ field.name }}">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                    </label>
+                </p-floatLabel>
+                {% elif field.type == 'FloatField' %}
+                <p-floatLabel>
+                    <p-inputNumber 
+                        inputId="minmaxfraction" 
+                        mode="decimal" 
+                        [minFractionDigits]="2" 
+                        [maxFractionDigits]="5" 
+                        id="{{ field.name }}" 
+                        formControlName="{{ field.name }}" />
+                    <label for="{{ field.name }}">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                    </label>
+                </p-floatLabel>
+                {% elif field.type == 'EmailField' %}
+                <p-floatLabel>
+                    <input 
+                        class="w-full" 
+                        id="{{ field.name }}" 
+                        type="email" 
+                        pInputText 
+                        formControlName="{{ field.name }}" />
+                    <label for="{{ field.name }}">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                    </label>
+                </p-floatLabel>
+                {% elif field.type == 'TextField' %}
                 <!-- 
-                    CharField
-                    TextField
-                    EmailField
-                    BooleanField
-                    IntegerField
-                    FloatField
-                    DateField
-                    DateTimeField
-                    FileField
+                <p-editor formControlName="{{ field.name }}" [style]="{ height: '320px' }" />
                 -->
+                <p-floatLabel>
+                    <textarea 
+                        class="w-full" 
+                        id="{{ field.name }}" 
+                        rows="5"
+                        pInputTextarea 
+                        formControlName="{{ field.name }}"></textarea>
+                    <label for="{{ field.name }}">
+                        {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
+                    </label>
+                </p-floatLabel>
+                {% else %}
                 <p-floatLabel>
                     <input 
                         class="w-full" 
@@ -33,15 +133,35 @@
                         {{ '{{' }} '{{ field.name }}' | translate {{ '}}' }}
                     </label>
                 </p-floatLabel>
+                {% endif %}
             </div>
-            {% endfor %}{% raw %}
+            {% endfor %}{% if 'relations' in model.keys() %}{% for relation in model.relations %}
+            <div class="col-12 mb-5">
+                <p-floatLabel>
+                    <p-autoComplete
+                        id="{{ relation.name }}"
+                        [styleClass]="'w-full'" 
+                        formControlName="{{ relation.name }}" 
+                        [forceSelection]="true"
+                        [completeOnFocus]="true"
+                        [dropdown]="true" 
+                        [suggestions]="filtered{{ relation.name|title }}s" 
+                        (completeMethod)="filter{{ relation.name|title }}($event)" 
+                        field="{% for _model in cookiecutter.models.models_list %}{% if _model.name == relation.type %}{{_model.fields[0].name}}{% endif %}{% endfor %}" />
+                    <label for="{{ relation.name }}">
+                        {{ '{{' }} '{{ relation.name }}' | translate {{ '}}' }}
+                    </label>
+                </p-floatLabel>
+            </div>
+            {% endfor %}{% endif %}{% raw %}
             <div class="col-12 text-center">   
                 <p-button
                     class="mr-3"
                     [disabled]="formGroup.invalid"
                     (click)="save()"
-                    outlined="true"
+                    outlined="true" 
                     rounded="true"
+                    type="submit"
                     icon="pi pi-save"></p-button>
                 <p-button
                     (click)="back()"

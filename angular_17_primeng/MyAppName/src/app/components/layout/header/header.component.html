@@ -1,0 +1,22 @@
+<p-toolbar>
+    <div class="grid w-full align-items-center">
+        <div class="col-1">
+            <p-button 
+                type="button" 
+                (click)="openMenu()" 
+                icon="pi pi-align-justify" 
+                rounded="true" 
+                outlined="true" 
+                styleClass="h-2rem w-2rem"></p-button>  
+        </div>
+        <div class="col text-center">
+            <h1 class="m-0">{{ 'app.name' | translate }}</h1>
+        </div>
+        <div class="col-1">
+        </div>
+    </div>
+</p-toolbar>
+
+<app-menu
+    *ngIf="showMenu"
+    (onClose)="closeMenu()"></app-menu>

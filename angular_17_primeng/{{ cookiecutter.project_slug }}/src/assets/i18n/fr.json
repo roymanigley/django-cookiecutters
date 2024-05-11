@@ -1,0 +1,8 @@
+{
+  "app": {
+    "name": "{{ cookiecutter.project_name }}"
+  },
+  "login": "Login",
+  "password": "Mot de passe",
+  "username": "Nom d'utilisateur"
+}

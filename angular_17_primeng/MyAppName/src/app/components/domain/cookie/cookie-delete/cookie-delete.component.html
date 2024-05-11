@@ -1,0 +1,34 @@
+<div class="flex justify-content-center p-5">
+    <p-card styleClass="w-30rem">
+        <ng-template pTemplate="header">
+            <div class="text-center">
+                <h2>{{ 'delete' }} Cookie</h2>
+            </div>
+        </ng-template>
+        <div>
+            <div class="text-center">
+                <em title="id: {{ record?.id }}">Delete Cookie {{ record?.name }}</em>
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <div class="text-center">   
+                <p-button
+                    class="mr-3"
+                    (click)="delete()"
+                    severity="danger"
+                    outlined="true"
+                    rounded="true"
+                    icon="pi pi-trash"></p-button>
+                <p-button
+                    (click)="back()"
+                    severity="secondary"
+                    outlined="true"
+                    rounded="true"
+                    icon="pi pi-times"></p-button>
+            </div>
+
+        </ng-template>
+
+    </p-card>
+</div>

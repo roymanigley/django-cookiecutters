@@ -24,7 +24,7 @@ import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
 import { StepperModule } from 'primeng/stepper';
 import { CardModule } from 'primeng/card';
-
+import { EditorModule } from 'primeng/editor';
 
 @NgModule({
   declarations: [],
@@ -54,6 +54,7 @@ import { CardModule } from 'primeng/card';
     TooltipModule,
     StepperModule,
     CardModule,
+    EditorModule,
   ],
   exports: [
     ToolbarModule,
@@ -81,6 +82,7 @@ import { CardModule } from 'primeng/card';
     TooltipModule,
     StepperModule,
     CardModule,
+    EditorModule,
   ]
 })
 export class UiFrameworkModule { }
