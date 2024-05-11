@@ -3,27 +3,28 @@ import os
 
 FILE_SPLIT_PATTERN = '--- split:'
 FILES_TO_SPLIT = [
-    'src/app/shared/models/domain/__cookiecutter__.ts',
-    'src/app/shared/resolvers/__cookiecutter__.resolver.ts',
-    'src/app/shared/services/api/__cookiecutter__.service.ts',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__.module.ts',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-list/__cookiecutter__-list.component.ts',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-list/__cookiecutter__-list.component.html',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-list/__cookiecutter__-list.component.scss',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-detail/__cookiecutter__-detail.component.ts',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-detail/__cookiecutter__-detail.component.html',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-detail/__cookiecutter__-detail.component.scss',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-edit/__cookiecutter__-edit.component.ts',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-edit/__cookiecutter__-edit.component.html',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-edit/__cookiecutter__-edit.component.scss',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-delete/__cookiecutter_-delete.component.ts',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-delete/__cookiecutter_-delete.component.html',
-    'src/app/components/domain/__cookiecutter__/__cookiecutter__-delete/__cookiecutter_-delete.component.scss',
+    '__cookiecutter__/model.ts',
+    '__cookiecutter__/resolver.ts',
+    '__cookiecutter__/service.ts',
+    '__cookiecutter__/component.module.ts',
+    '__cookiecutter__/list-component/list.component.ts',
+    '__cookiecutter__/list-component/list.component.html',
+    '__cookiecutter__/list-component/list.component.scss',
+    '__cookiecutter__/detail-component/detail.component.ts',
+    '__cookiecutter__/detail-component/detail.component.html',
+    '__cookiecutter__/detail-component/detail.component.scss',
+    '__cookiecutter__/edit-component/edit.component.ts',
+    '__cookiecutter__/edit-component/edit.component.html',
+    '__cookiecutter__/edit-component/edit.component.scss',
+    '__cookiecutter__/delete-component/delete.component.ts',
+    '__cookiecutter__/delete-component/delete.component.html',
+    '__cookiecutter__/delete-component/delete.component.scss',
 ]
 
 
 def main():
     [split_into_files(file_name) for file_name in FILES_TO_SPLIT]
+    os.remove('__cookiecutter__')
 
 
 def split_into_files(file_name_to_split: str) -> None:
@@ -50,9 +51,7 @@ def write_to_file(file_name: str, lines: typing.List[str]) -> None:
 
 if __name__ == '__main__':
     try:
-        print('[+] post_gen_project.py started')
         main()
-        print('[+] post_gen_project.py completed')
     except Exception as e:
-        print(f'[+] post_gen_project.py failed: {e}')
+        print(f'[!] post_gen_project.py failed: {e}')
         raise e
