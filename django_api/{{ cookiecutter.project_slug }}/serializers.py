@@ -6,12 +6,14 @@ from {{ cookiecutter.project_slug }}.models import {{ cookiecutter.models.models
 {% for model in cookiecutter.models.models_list %}
 class {{model.name}}Serializer(GenericSerializer):
     {% if 'relations' in model.keys() %}
-    {% for relation in model.relations %}class _{{model.name}}_{{ relation.name|replace('_', ' ')|title|replace(' ', '') }}Serializer(GenericSerializer):       
-        class Meta:
-            model = {{ relation.type }}
+    {% for relation in model.relations %}
+    class _{{model.name}}_{{ relation.name|replace('_', ' ')|title|replace(' ', '') }}Serializer(GenericSerializer):       
         {% for _model in cookiecutter.models.models_list %}{% if _model.name == relation.type %}{% if 'fields' in _model.keys() %}{% for _field in _model.fields %}
         {{_field.name}} = serializers.{{ 'CharField' if _field.type == 'TextField' else _field.type }}(read_only=True)
-        {% endfor %}{% endif %}{% endif %}{% endfor %}{% endfor %}{% endif %}
+        {% endfor %}{% endif %}{% endif %}{% endfor %}
+        class Meta:
+            model = {{ relation.type }}
+        {% endfor %}{% endif %}
 
     id = serializers.IntegerField(read_only=True)
     {% if 'fields' in model.keys() %}{% for field in model.fields %}{{field.name}} = serializers.{{'CharField' if field.type == 'TextField' else field.type }}(

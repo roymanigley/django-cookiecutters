@@ -5,75 +5,230 @@
   "models": {
     "models_list":[
       { 
-        "name": "ParentModel",
+        "name": "Employee",
         "fields": [
           {
-            "name": "char_field",
+            "name": "first_name",
             "type": "CharField",
             "max_length": 255,
             "required": true
           },
           {
-            "name": "text_field",
-            "type": "TextField",
-            "required": true
-          },
-          {
-            "name": "email_field",
-            "type": "EmailField",
+            "name": "last_name",
+            "type": "CharField",
             "max_length": 255,
-            "required": true
-          },
-          {
-            "name": "boolean_field",
-            "type": "BooleanField"
-          },
-          {
-            "name": "int_field",
-            "type": "IntegerField",
-            "required": true
-          },
-          {
-            "name": "float_field",
-            "type": "FloatField",
-            "required": true
-          },
-          {
-            "name": "date_field",
-            "type": "DateField",
-            "required": true
-          },
-          {
-            "name": "date_time_field",
-            "type": "DateTimeField",
-            "required": true
-          },
-          {
-            "name": "file_field",
-            "type": "FileField",
-            "required": true
-          }
-        ],
-        "relations": [
-          {
-            "name": "child_field",
-            "type": "ChildModel",
             "required": true
           }
         ]
       },
       { 
-        "name": "ChildModel",
+        "name": "EmployeeRelation",
         "fields": [
           {
-            "name": "char_field",
+            "name": "relation_type",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          }
+        ],
+        "relations": [
+          {
+            "name": "from_employee",
+            "type": "Employee",
+            "required": true
+          },
+          {
+            "name": "employee_related",
+            "type": "Employee",
+            "required": true
+          }
+        ]
+      },
+      { 
+        "name": "Task",
+        "fields": [
+          {
+            "name": "name",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "description",
+            "type": "TextField",
+            "required": false
+          },
+          {
+            "name": "status",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "date",
+            "type": "DateField",
+            "required": true
+          },
+          {
+            "name": "start_time",
+            "type": "TimeField",
+            "required": true
+          },
+          {
+            "name": "end_time",
+            "type": "TimeField",
+            "required": true
+          },
+          {
+            "name": "creator",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "modifier",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          }
+        ],
+        "relations": [
+          {
+            "name": "task_type",
+            "type": "Task_Type",
+            "required": true
+          },
+          {
+            "name": "employee",
+            "type": "Employee",
+            "required": true
+          }
+        ]
+      },
+      { 
+        "name": "Project",
+        "fields": [
+          {
+            "name": "name",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "description",
+            "type": "TextField",
+            "required": false
+          },
+          {
+            "name": "status",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "start_date",
+            "type": "DateField",
+            "required": true
+          },
+          {
+            "name": "end_date",
+            "type": "DateField",
+            "required": true
+          },
+          {
+            "name": "budget",
+            "type": "FloatField",
+            "required": true
+          },
+          {
+            "name": "creator",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "modifier",
             "type": "CharField",
             "max_length": 255,
             "required": true
           }
         ]
+      },
+      { 
+        "name": "Task_Type",
+        "fields": [
+          {
+            "name": "name",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "description",
+            "type": "TextField",
+            "required": false
+          }
+        ],
+        "relations": [
+          {
+            "name": "project",
+            "type": "Project",
+            "required": true
+          }
+        ]
+      },
+      { 
+        "name": "ProjectAccounting",
+        "fields": [
+          {
+            "name": "accounting_type",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "description",
+            "type": "TextField",
+            "required": true
+          },
+          {
+            "name": "amount",
+            "type": "FloatField",
+            "required": true
+          },
+          {
+            "name": "creator",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          },
+          {
+            "name": "source_table",
+            "type": "CharField",
+            "max_length": 255,
+            "required": false
+          },
+          {
+            "name": "source_id",
+            "type": "CharField",
+            "max_length": 255,
+            "required": false
+          },
+          {
+            "name": "modifier",
+            "type": "CharField",
+            "max_length": 255,
+            "required": true
+          }
+        ],
+        "relations": [
+          {
+            "name": "project",
+            "type": "Project",
+            "required": true
+          }
+        ]
       }
-
     ]
   }
 }

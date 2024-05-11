@@ -1,4 +1,5 @@
 from django.contrib import admin
+# from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from {{ cookiecutter.project_slug }}.models import {{ cookiecutter.models.models_list|map(attribute='name')|join(', ') }}
 
@@ -9,3 +10,5 @@ class Member{{ model.name }}(admin.ModelAdmin):
 {% endfor %}
 {% for model in cookiecutter.models.models_list %}admin.site.register({{ model.name}}, Member{{ model.name }})
 {% endfor %}
+
+# admin.site.register(Login, BaseUserAdmin)

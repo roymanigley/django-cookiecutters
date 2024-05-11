@@ -13,5 +13,5 @@ class {{model.name}}(models.Model):
     )
     {% endfor %}{% endif %}
     def __str__(self):
-        return f'[{self.id}] {% if 'fields' in model.keys() and model.fields|length > 0 %}self.{{model.fields[0].name}}{% endif %}'
+        return f'[{self.id}] {% if 'fields' in model.keys() and model.fields|length > 0 %}{self.{{model.fields[0].name}}}{% endif %}'
 {% endfor %}
